@@ -108,10 +108,32 @@ def canJump(nums):
         while i < j: 
             if dpPositions[i] and i + nums[i] >= j:
                 dpPositions[j] = True
-                break
+                # break
+                i += 1
             i += 1
         j += 1
     return dpPositions[len(dpPositions) - 1]
 
 print(canJump([2,3,1,1,4])) # True
 print(canJump([3,2,1,0,4])) # False
+
+print("BREAK")
+
+# This version should be better
+def canJump2(nums):
+    ln = len(nums)
+    can_reach = 0
+    for idx, num in enumerate(nums):
+        # i can't reach idx, then I can't move forward
+        if idx > can_reach:
+            return False
+
+        can_reach = max(can_reach, idx + num) 
+        #I just passed my destiny
+        if can_reach >= ln - 1:
+            return True
+
+    return False
+
+print(canJump2([2,3,1,1,4])) # True
+print(canJump2([3,2,1,0,4])) # False
