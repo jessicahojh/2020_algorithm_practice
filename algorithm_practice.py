@@ -67,3 +67,26 @@ print(lengthOfLongestSubstring('abcabcabcazbb')) #4
 print(lengthOfLongestSubstring('abcheukls')) #9
 print(lengthOfLongestSubstring('aabaab!bb')) #3
 print(lengthOfLongestSubstring('abba')) #2
+
+print("BREAK")
+
+def houseRobber(nums):
+
+    if len(nums) == 0:
+        return 0
+    if len(nums) == 1:
+        return nums[0]
+    if len(nums) == 2:
+        return max(nums[0], nums[1])
+
+    maxLootAtNth = [nums[0], max(nums[0], nums[1])]
+
+    i = 2
+    while i < len(nums):
+        maxLootAtNth.append(max(nums[i] + maxLootAtNth[i-2], maxLootAtNth[i-1]))
+        i += 1
+    
+    return maxLootAtNth.pop()
+
+print(houseRobber([1,2,3,1])) #4
+print(houseRobber([2,7,9,3,1])) #12
