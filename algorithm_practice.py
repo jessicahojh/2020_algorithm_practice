@@ -90,3 +90,28 @@ def houseRobber(nums):
 
 print(houseRobber([1,2,3,1])) #4
 print(houseRobber([2,7,9,3,1])) #12
+print(houseRobber([1,5,9,100,4,22,3])) #127
+
+print("BREAK")
+
+def canJump(nums):
+
+    dpPositions = []
+    for num in nums:
+        dpPositions.append(False)
+  
+    dpPositions[0] = True
+
+    j = 1
+    while j < len(nums): 
+        i = 0
+        while i < j: 
+            if dpPositions[i] and i + nums[i] >= j:
+                dpPositions[j] = True
+                break
+            i += 1
+        j += 1
+    return dpPositions[len(dpPositions) - 1]
+
+print(canJump([2,3,1,1,4])) # True
+print(canJump([3,2,1,0,4])) # False
