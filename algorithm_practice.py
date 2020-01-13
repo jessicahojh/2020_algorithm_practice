@@ -137,3 +137,68 @@ def canJump2(nums):
 
 print(canJump2([2,3,1,1,4])) # True
 print(canJump2([3,2,1,0,4])) # False
+
+print("BREAK")
+
+def firstMissingPositive(nums):
+
+    if nums == []:
+        return 1
+    
+    for num in range(1, max(nums) + 2):
+        if num not in nums:
+            return num
+
+print(firstMissingPositive([])) #1
+print(firstMissingPositive([1,2,0])) #3
+print(firstMissingPositive([3,4,-1,1])) #2
+print(firstMissingPositive([7,8,9,11,12])) #1
+
+print("BREAK")
+
+def firstMissingPositive2(nums):
+
+    if nums == []:
+        return 1
+    
+    newNums = set(nums)
+    
+    for num in range(1, max(nums) + 2):
+        if num not in newNums:
+            return num
+
+print(firstMissingPositive2([])) #1
+print(firstMissingPositive2([1,2,0])) #3
+print(firstMissingPositive2([3,4,-1,1])) #2
+print(firstMissingPositive2([7,8,9,11,12])) #1
+
+print("BREAK")
+
+def productExceptSelf(nums):
+
+    output = []
+
+    for x in nums:
+        output.append(1)
+
+    product = 1
+
+    # Multiply from the left
+    i = 0
+    while i < len(nums):
+        output[i] = output[i] * product
+        product = product * nums[i]
+        i += 1
+
+    product = 1
+
+    # Multiply from the right
+    j = len(nums) - 1
+    while j >= 0:
+        output[j] = output[j] * product
+        product = product * nums[j]
+        j -= 1
+
+    return output
+print(productExceptSelf([1,2,3,4])) #[24,12,8,6]
+print(productExceptSelf([2,3,4,5])) #[60, 40, 30, 24]
