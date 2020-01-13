@@ -224,3 +224,27 @@ def maxArea(height):
     
     return maxArea
 print(maxArea([1,8,6,2,5,4,8,3,7])) #49
+
+print("break")
+
+# Leetcode Best Time to Buy and Sell Stock
+
+def maxProfit(prices):
+
+    maxProfit = 0
+    cheapestPrice = prices[0]
+
+    i = 0
+    while i < len(prices):
+        price = prices[i]
+        if price < cheapestPrice:
+            cheapestPrice = price
+
+        currentProfit = price - cheapestPrice
+        maxProfit = max(currentProfit, maxProfit)
+        i += 1
+
+    return maxProfit
+
+print(maxProfit([7,1,5,3,6,4])) #5
+print(maxProfit([7,6,4,3,1])) #0
