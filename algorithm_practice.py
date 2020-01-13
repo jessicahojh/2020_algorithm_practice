@@ -202,3 +202,25 @@ def productExceptSelf(nums):
     return output
 print(productExceptSelf([1,2,3,4])) #[24,12,8,6]
 print(productExceptSelf([2,3,4,5])) #[60, 40, 30, 24]
+
+print("BREAK")
+
+# Leetcode Container With Most Water Problem
+
+def maxArea(height):
+
+    maxArea = 0
+    left = 0
+    right = len(height) - 1
+
+    while left < right:
+        currentArea = min(height[left], height[right]) * (right - left)
+        maxArea = max(currentArea, maxArea)
+        
+        if height[left] < height[right]:
+            left =+ 1
+        else:
+            right -= 1
+    
+    return maxArea
+print(maxArea([1,8,6,2,5,4,8,3,7])) #49
