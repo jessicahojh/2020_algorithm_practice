@@ -121,7 +121,7 @@ print("BREAK")
 
 # This version should be better
 def canJump2(nums):
-    ln = len(nums)
+
     can_reach = 0
     for idx, num in enumerate(nums):
         # i can't reach idx, then I can't move forward
@@ -129,8 +129,8 @@ def canJump2(nums):
             return False
 
         can_reach = max(can_reach, idx + num) 
-        #I just passed my destiny
-        if can_reach >= ln - 1:
+        #I just passed my goal
+        if can_reach >= len(nums) - 1:
             return True
 
     return False
@@ -141,6 +141,7 @@ print(canJump2([3,2,1,0,4])) # False
 print("BREAK")
 
 def firstMissingPositive(nums):
+    # O(n^2) runtime 
 
     if nums == []:
         return 1
@@ -157,6 +158,7 @@ print(firstMissingPositive([7,8,9,11,12])) #1
 print("BREAK")
 
 def firstMissingPositive2(nums):
+    # O(n) runtime with extra space used
 
     if nums == []:
         return 1
@@ -171,6 +173,36 @@ print(firstMissingPositive2([])) #1
 print(firstMissingPositive2([1,2,0])) #3
 print(firstMissingPositive2([3,4,-1,1])) #2
 print(firstMissingPositive2([7,8,9,11,12])) #1
+
+print("BREAK")
+
+def firstMissingPositive3(nums):
+    # O(n) runtime and no extra space used
+
+    result = len(nums) + 1
+
+    i = 0
+    while i < len(nums):
+        while nums[i] > 0 and nums[i] != nums[nums[i] - 1] and nums[i] < i + 1:
+            index = nums[i] - 1
+            temp = nums[index]
+            nums[index] = nums[i]
+            nums[i] = temp
+        i+=1
+
+    i = 0
+    while i < len(nums):
+        if nums[i] != i + 1:
+            result = i + 1
+            break
+        i+=1
+
+    return result
+
+# print(firstMissingPositive3([])) #1
+# print(firstMissingPositive3([1,2,0])) #3
+# print(firstMissingPositive3([3,4,-1,1])) #2
+# print(firstMissingPositive3([7,8,9,11,12])) #1
 
 print("BREAK")
 
@@ -205,6 +237,30 @@ print(productExceptSelf([2,3,4,5])) #[60, 40, 30, 24]
 
 print("BREAK")
 
+def productExceptSelf2(nums): # my way
+
+    answer = []
+
+    for i, num in enumerate(nums):
+        answer.append(multiply(nums[:i]) * multiply(nums[i+1:]))
+
+    return answer
+
+def multiply(lst):
+    
+    answer = 1
+
+    for num in lst:
+        answer = num * answer
+
+    return answer
+
+
+print(productExceptSelf2([1,2,3,4])) #[24,12,8,6]
+print(productExceptSelf2([2,3,4,5])) #[60, 40, 30, 24]
+
+print("BREAK")
+
 # Leetcode Container With Most Water Problem
 
 def maxArea(height):
@@ -218,7 +274,7 @@ def maxArea(height):
         maxArea = max(currentArea, maxArea)
         
         if height[left] < height[right]:
-            left =+ 1
+            left += 1
         else:
             right -= 1
     
@@ -248,3 +304,35 @@ def maxProfit(prices):
 
 print(maxProfit([7,1,5,3,6,4])) #5
 print(maxProfit([7,6,4,3,1])) #0
+
+print("BREAK")
+
+# This problem was asked by Facebook.
+# Given the mapping a = 1, b = 2, ... z = 26, and an encoded message,
+# count the number of ways it can be decoded.
+# For example, the message '111' would give 3, since it could be 
+# decoded as 'aaa', 'ka', and 'ak'.
+# You can assume that the messages are decodable. For example, '001' 
+# is not allowed.
+
+def helper_dp(data, k, memo):
+
+    if k == 0:
+        return 1
+    s = len(data) - k
+    if data[s] == "0":
+        return 0
+    if k in memo.keys() :
+        return memo[k]
+    result = helper_dp(data, k-1, memo)
+    if k >= 2 and int(data[s:s+2]) <= 26:
+        result += helper_dp(data, k-2, memo)
+    memo[k] = result
+    return result
+
+def numWays_dp(data):
+    memo = {}
+    return helper_dp(data, len(data), memo)
+
+print(numWays_dp('111')) # 3 b/c 'aaa', 'ka', 'ak'
+print(numWays_dp('1111')) # 5 b/c 'aaaa', 'kk', 'aak', 'kaa', 'aka'
