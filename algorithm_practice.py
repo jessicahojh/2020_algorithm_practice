@@ -315,24 +315,131 @@ print("BREAK")
 # You can assume that the messages are decodable. For example, '001' 
 # is not allowed.
 
-def helper_dp(data, k, memo):
+def helper(data, k, memo):
 
     if k == 0:
         return 1
-    s = len(data) - k
-    if data[s] == "0":
-        return 0
-    if k in memo.keys() :
+
+    s = len(data) - k 
+
+    if k in memo.keys():
         return memo[k]
-    result = helper_dp(data, k-1, memo)
+
+    result = helper(data, k-1, memo)
+
     if k >= 2 and int(data[s:s+2]) <= 26:
-        result += helper_dp(data, k-2, memo)
+        result += helper(data, k-2, memo)
     memo[k] = result
+
     return result
 
-def numWays_dp(data):
+def numWays(s):
     memo = {}
-    return helper_dp(data, len(data), memo)
+    return helper(s, len(s), memo)
 
-print(numWays_dp('111')) # 3 b/c 'aaa', 'ka', 'ak'
-print(numWays_dp('1111')) # 5 b/c 'aaaa', 'kk', 'aak', 'kaa', 'aka'
+print(numWays('11')) # 2 b/c 'aa', 'k'
+# print(numWays('111')) # 3 b/c 'aaa', 'ka', 'ak'
+# print(numWays('1111')) # 5 b/c 'aaaa', 'kk', 'aak', 'kaa', 'aka'
+
+print('BREAK')
+
+# without using memoization
+
+def helper2(s, k):
+
+    if k == 0:
+        return 1
+
+    x = len(s) - k 
+
+    result = helper2(s, k-1)
+
+    if k >= 2 and int(s[x:x+2]) <= 26:
+        result += helper2(s, k-2)
+
+    return result
+
+def numWays2(string):
+
+    return helper2(string, len(string)) 
+
+print(numWays2('11')) # 2 b/c 'aa', 'k'
+
+print("BREAK")
+
+# class TreeNode(object):
+
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+# class Solution(object):
+
+#     def helperFunction(self, node, counter):
+
+#         if node == None:
+#             return
+#         self.helperFunction(node.left, counter)
+#         if node.left
+
+
+def countAndSay(n):
+
+    seq = "1"
+    for i in range(n-1):
+        seq = getNext(seq)
+    return seq
+
+def getNext(seq):
+    i = 0
+    nextSeq = ""
+
+    while i < len(seq):
+        count = 1
+        while i < len(seq) - 1 and seq[i] == seq [i+1]:
+            count += 1
+            i += 1
+        nextSeq += str(count) + seq[i]
+        i += 1
+    return nextSeq
+
+
+print(countAndSay(4))
+#1
+#11
+#21
+#1211
+
+print("BREAK")
+
+def MergeTwoSortedLists(L1, L2, x):
+
+    L1Pointer = x
+    L2Pointer = len(L2) - 1
+    i = len(L1) - 1
+
+    while L2Pointer >= 0 and L1Pointer >=0:
+        if L2[L2Pointer] > L1[L1Pointer]:
+            L1[i] = L2[L2Pointer]
+            L2Pointer -= 1
+            i -= 1
+        else:
+            L1[i] = L1[L1Pointer]
+            L1Pointer -= 1
+            i -= 1
+
+    while i >= 0:
+        if L2Pointer >= 0:
+            L1[i] = L2[L2Pointer]
+            L2Pointer -= 1
+            i -= 1
+
+        elif L1Pointer >= 0:
+            L1[i] = L1[L1Pointer]
+            L1Pointer -= 1
+            i -= 1
+    
+    return L1
+print(MergeTwoSortedLists([4,8,9,12,0,0,0,0], [3,7,10,14], 3))
+print(MergeTwoSortedLists([8,9,12,15,20,0,0,0,0], [3,5,7,10], 4))
