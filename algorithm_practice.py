@@ -443,3 +443,43 @@ def MergeTwoSortedLists(L1, L2, x):
     return L1
 print(MergeTwoSortedLists([4,8,9,12,0,0,0,0], [3,7,10,14], 3))
 print(MergeTwoSortedLists([8,9,12,15,20,0,0,0,0], [3,5,7,10], 4))
+
+print("BREAK")
+
+# keeptruckin 1 hour pair
+
+def zipList(lst):
+
+    answer = [] 
+    theres_next = True
+    i = 0
+
+    while theres_next:
+
+        theres_next = False
+
+        for inside_lst in lst:
+            print("we are in list", inside_lst)
+            print("and i is ", i)
+            print("theres next is", theres_next)
+            if i+1 <= len(inside_lst): 
+                theres_next = True
+                print("there's a next!")
+                answer.append(inside_lst[i])
+        i += 1
+
+    return answer
+
+print(zipList([[4,15,3,7], [3,7,5], [10], [5,2,16,9]]))
+
+#[
+# [4,15,3,7], 
+# [3,7,5], 
+# [10], 
+# [5,2,16,9]
+# ]
+
+#[4,3,10,5,15,7,2,3,5,16,7,9]
+
+# note: line 15 needs the i+1 instead of just i, or else we loop 5 times instead 
+# of just 4 times
