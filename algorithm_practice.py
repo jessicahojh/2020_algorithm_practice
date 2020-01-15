@@ -483,3 +483,73 @@ print(zipList([[4,15,3,7], [3,7,5], [10], [5,2,16,9]]))
 
 # note: line 15 needs the i+1 instead of just i, or else we loop 5 times instead 
 # of just 4 times
+
+
+print("BREAK")
+
+# This problem was asked by Airbnb.
+# Given a list of integers, write a function that returns the largest sum of 
+# non-adjacent numbers. Numbers can be 0 or negative.
+# For example, [2, 4, 6, 2, 5] should return 13, since we pick 2, 6, and 5. 
+# [5, 1, 1, 5] should return 10, since we pick 5 and 5.
+# Follow-up: Can you do this in O(N) time and constant space?
+
+def largestSumNonAdjacent(nums):
+
+    if len(nums) == 0:
+        return 0
+    if len(nums) == 1:
+        return nums[0]
+    if len(nums) == 2:
+        return max(nums[0], nums[1])
+
+    answer = [nums[0], max(nums[0], nums[1])]
+
+    i = 2
+
+    while i < len(nums):
+        answer.append(max(nums[i] + answer[i-2], answer[i-1]))
+        i += 1
+
+    return answer.pop()
+
+print(largestSumNonAdjacent([2, 4, 6, 2, 5])) # 13
+print(largestSumNonAdjacent([5, 1, 1, 5])) # 10
+
+print("BREAK")
+
+def romanToNumeral(roman):
+
+    dictionary = {"I":1, "V":5, "X":10, "L":50, "C":100, "D":500, "M":1000}
+
+    answer = 0
+    prev = 0
+    i = len(roman) - 1
+
+    while i >= 0:
+        if dictionary[roman[i]] >= prev:
+            answer += dictionary[roman[i]]
+            prev = dictionary[roman[i]]
+        else:
+            answer -= dictionary[roman[i]]
+            prev = dictionary[roman[i]]
+        i -= 1
+
+    return answer
+
+print(romanToNumeral("XXI")) #21
+print(romanToNumeral("IV")) #4
+print(romanToNumeral("CDLXXXVI")) #486
+
+print("BREAK")
+
+def numeralToRoman(num):
+
+    pass
+
+print(numeralToRoman(44))
+
+print("BREAK")
+
+
+
