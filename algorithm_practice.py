@@ -518,6 +518,32 @@ print(largestSumNonAdjacent([5, 1, 1, 5])) # 10
 
 print("BREAK")
 
+# now redo largestSumNonAdjacent with constant space
+
+def constantSpaceLargestSumNonAdjacent(nums):
+
+    if len(nums) == 0:
+        return 0
+    if len(nums) == 1:
+        return nums[0]
+    if len(nums) == 2:
+        return max(nums[0], nums[1])
+
+    nums[1] = max(nums[0], nums[1])
+
+    i = 2
+
+    while i < len(nums):
+        nums[i] = max(nums[i] + nums[i-2], nums[i-1])
+        i += 1
+
+    return nums[-1]
+
+print(constantSpaceLargestSumNonAdjacent([2, 4, 6, 2, 5])) # 13
+print(constantSpaceLargestSumNonAdjacent([5, 1, 1, 5])) # 10
+
+print("BREAK")
+
 def romanToNumeral(roman):
 
     dictionary = {"I":1, "V":5, "X":10, "L":50, "C":100, "D":500, "M":1000}
@@ -543,13 +569,90 @@ print(romanToNumeral("CDLXXXVI")) #486
 
 print("BREAK")
 
-def numeralToRoman(num):
+# def numeralToRoman(num):
+#     """num is a int between 1-3999"""
 
-    pass
+#     dictionary = {"I":1, "IV":4, "V":5, "IX":9, "X":10, "XL":40, "L":50, 
+#                   "XC":90, "C":100, "CD":400, "D":500, "CM":900, "M":1000}
 
-print(numeralToRoman(44))
+#     num = str(num)
+#     i = 0
+
+#     answer = []
+
+#     while i < len()
+
+
+# print(numeralToRoman(44)) # XLIV
+# print(numeralToRoman(90)) # XC
+# print(numeralToRoman(649)) # DCXLIX
 
 print("BREAK")
+
+def climbStairs(n):
+
+    if n < 1:
+        return 0
+    if n == 1:
+        return 1
+    if n == 2:
+        return 2
+
+    return climbStairs(n-1) + climbStairs(n-2)
+
+print(climbStairs(1))
+print(climbStairs(2))
+print(climbStairs(5))
+print(climbStairs(8))
+
+print("BREAK")
+
+def climbStairsWithMemo(n):
+    
+    memo = {}
+    
+    return climbStairsHelper(n, memo)
+
+def climbStairsHelper(n, memo):
+    if n < 1:
+        return 0
+    if n == 1:
+        return 1
+    if n == 2:
+        return 2
+    
+    if n in memo:
+        return memo[n]
+    else:    
+        memo[n] = climbStairsHelper(n - 1, memo) + climbStairsHelper(n - 2, memo)
+        
+    return memo[n]
+
+print(climbStairsWithMemo(1))
+print(climbStairsWithMemo(2))
+print(climbStairsWithMemo(5))
+print(climbStairsWithMemo(8))
+
+print("BREAK")
+
+# This problem was asked by Apple.
+# Implement a job scheduler which takes in a function f and an integer n, 
+# and calls f after n milliseconds.
+
+from threading import Timer
+
+def jobScheduler(f, n):
+
+    return(Timer(n, f))
+
+def f():
+
+    print("Function F got called")
+
+print(jobScheduler(f(), 3.0))
+
+print("BREAK")
+
 
 
 
