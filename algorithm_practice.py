@@ -651,7 +651,102 @@ def f():
 
 print(jobScheduler(f(), 3.0))
 
+# I also did a version of this in JS using setTimeout
+
 print("BREAK")
+
+def multiplyStrings(num1, num2):
+
+    dictionary = {"0":0, "1":1, "2":2, "3":3, "4":4, 
+                  "5":5, "6":6, "7":7, "8":8, "9":9}
+
+    if len(num2) >= len(num1):
+        longerNum = num2
+        shorterNum = num1
+    else:
+        longerNum = num1
+        shorterNum = num2
+
+    holder = []
+
+    for x in range(len(num1) + len(num2)):
+        holder.append(0)
+
+    x = len(holder) - 1
+    y = len(holder) - 1
+    i = len(shorterNum) - 1
+    
+    extra = 0
+
+    while i >= 0:
+        j = len(longerNum) - 1
+        y = x
+        while j >= 0:
+            if j == 0:
+                tempAnswer = dictionary[shorterNum[i]] * dictionary[longerNum[j]] + extra + holder[y]
+                
+                if tempAnswer > 9:
+                    holder[y] = tempAnswer % 10
+                    holder[y-1] = tempAnswer//10
+                    extra = 0
+
+                else:
+                    holder[y] = tempAnswer
+                    extra = 0
+            else:
+                tempAnswer = dictionary[shorterNum[i]] * dictionary[longerNum[j]] + extra + holder[y]
+                if tempAnswer > 9:
+                    holder[y] = tempAnswer % 10
+                    extra = tempAnswer//10
+                else:
+                    holder[y] = tempAnswer
+                    extra = 0
+            j -= 1
+            y -= 1
+        i -= 1
+        x -= 1
+
+    print(holder)
+    # listToString = ''.join(holder)
+    # print(listToString)
+    # stringToInt = int(listToString)
+
+    # return stringToInt
+
+print(multiplyStrings("123", "456"))
+print(multiplyStrings("271", "387"))
+
+print("BREAK")
+
+# This problem was asked by Twitter.
+# Implement an autocomplete system. That is, given a query string s and a 
+# set of all possible query strings, return all strings in the set that have 
+# s as a prefix.
+# For example, given the query string de and the set of strings [dog, deer, 
+# deal], return [deer, deal].
+# Hint: Try preprocessing the dictionary into a more efficient data structure 
+# to speed up queries.
+
+def autocompleteSystem(s, a):
+
+    dictionary = {}
+
+    for word in a:
+        for i in range(len(word)-1):
+            if word[:i+1] not in dictionary.keys():
+                dictionary[word[:i+1]] = [word[i+1:]]
+            elif word[:i+1] in dictionary.keys():
+                dictionary[word[:i+1]].append(word[i+1:]) 
+
+    answer = []
+
+    if s in dictionary.keys():
+        for x in dictionary[s]:
+            answer.append(s+x)
+
+    return answer
+
+print(autocompleteSystem('de', ['dog', 'deer', 'deal'])) # ['deer', 'deal']
 
 
 
