@@ -748,6 +748,112 @@ def autocompleteSystem(s, a):
 
 print(autocompleteSystem('de', ['dog', 'deer', 'deal'])) # ['deer', 'deal']
 
+print("BREAK")
 
+# def IPAddresses(d):
+
+# print(IPAddresses("25525511135")) # ["255.255.11.135", "255.255.111.35"]
+
+print("BREAK")
+
+# https://leetcode.com/problems/camelcase-matching/
+
+# def camelCaseMatching(queries, pattern):
+
+#     upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+#     holder = []
+
+#     answer = []
+
+
+
+# print(camelCaseMatching(["FooBar","FooBarTest","FootBall","FrameBuffer","ForceFeedBack"], "FB"))
+# [true,false,true,true,false]
+
+print("BREAK")
+
+# def climbStairs2(n):
+#     """Instead of being able to climb 1 or 2 steps at a time, you could 
+#     climb any number from a set of positive integers X? For example, if 
+#     X = {1, 3, 5}, you could climb 1, 3, or 5 steps at a time"""
+
+#     if n < 1:
+#         return 0
+#     if n == 1:
+#         return 1
+#     if n == 3:
+#         return 2
+#     if n == 5:
+#         return 3
+
+#     return climbStairs2(n-5) + climbStairs2(n-3) + climbStairs2(n-1)
+
+# print(climbStairs2(10, [1,3,5]))
+# print(climbStairs2(10))
+
+# 1
+
+# 11
+
+# 3
+# 111
+
+# 1111
+# 31
+# 13
+
+# 5
+# 113
+# 11111
+
+# (4, 3) ---> 2
+# 0, 0, 1, 1, 2, 4, 7, 13 
+
+def kibb(n, k):
+
+    if n < k - 1:
+        return 0
+
+    elif n == 2:
+        return 1
+
+    else:
+        return sum(kibb(n-x, k) for x in range(1, k + 1))
+
+print(kibb(0, 3))
+print(kibb(1, 3))
+print(kibb(2, 3))
+print(kibb(3, 3))
+print(kibb(4, 3))
+
+print("BREAK")
+
+def canAttendMeetings(intervals):
+
+    starts = []
+    ends = []
+
+    i = 0
+
+    while i < len(intervals):
+        subArray = intervals[i]
+        starts.append(subArray[0])
+        ends.append(subArray[1])
+        i += 1
+
+    starts.sort()
+    ends.sort()
+
+    i = 0
+
+    while i < len(starts):
+        if starts[i+1] < ends[i]:
+            return False
+
+        return True
+
+print(canAttendMeetings([[0,30],[5,10],[15,20]])) # False
+print(canAttendMeetings([[7,10],[2,4]])) # True
 
 
