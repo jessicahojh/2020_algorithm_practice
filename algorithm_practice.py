@@ -845,6 +845,12 @@ def canAttendMeetings(intervals):
     starts.sort()
     ends.sort()
 
+    # start [0,5,15]
+    # end [10,20,30]
+
+    # start [2,7]
+    # end [4,10]
+
     i = 0
 
     while i < len(starts):
@@ -856,4 +862,35 @@ def canAttendMeetings(intervals):
 print(canAttendMeetings([[0,30],[5,10],[15,20]])) # False
 print(canAttendMeetings([[7,10],[2,4]])) # True
 
+print("BREAK")
+
+# https://leetcode.com/problems/repeated-dna-sequences/
+
+
+def findRepeatedDnaSequences(s):
+    
+    dictionary = {}
+    
+    i = 0
+    
+    while i < len(s) - 10:
+        string = s[i:i+10]
+        if string not in dictionary.keys():
+            dictionary[string] = 1
+        else:
+            dictionary[string] += 1
+        i += 1
+            
+    answer = []
+    
+    for key, value in dictionary.items():
+        if value > 1:
+            answer.append(key)
+
+    return answer
+        
+print(findRepeatedDnaSequences("AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"))
+# ["AAAAACCCCC", "CCCCCAAAAA"]
+
+print("BREAK")
 
