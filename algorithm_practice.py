@@ -33,6 +33,8 @@ def get_palindrome(s, x, y):
     return s[x+1:y]
 
 # print(longestPalindromicSubstring("babad")) # bab or aba
+                                    
+
 # print(longestPalindromicSubstring("cbbd")) # bb
 # print(longestPalindromicSubstring("cyn")) # c
 print(longestPalindromicSubstring("cccbaktkabd")) # baktkab
@@ -875,7 +877,7 @@ def findRepeatedDnaSequences(s):
     
     while i < len(s) - 10:
         string = s[i:i+10]
-        if string not in dictionary.keys():
+        if string not in dictionary:
             dictionary[string] = 1
         else:
             dictionary[string] += 1
@@ -894,3 +896,98 @@ print(findRepeatedDnaSequences("AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"))
 
 print("BREAK")
 
+# reverse vowels of a string
+
+def reverseVowels(s):
+
+    vowel = {'a','e','i','o','u','A','E','I','O','U'}
+
+    x = list(s)
+
+    i = 0
+    j = len(x)-1
+
+    holder = ''
+
+    while i < j:
+        if x[i] in vowel and x[j] in vowel:
+            holder = x[i]
+            x[i] = x[j]
+            x[j] = holder
+            i += 1
+            j -= 1
+        elif x[i] in vowel and x[j] not in vowel:
+            j -= 1
+        elif x[j] in vowel and x[i] not in vowel:
+            i += 1
+        else:
+            i += 1
+            j -= 1
+
+    return ''.join(x)
+
+print(reverseVowels('hello')) #holle
+print(reverseVowels('leetcode')) #leotcede
+
+print("BREAK")
+
+def moveZeros(nums):
+
+    index = 0
+
+    i = 0
+
+    while i < len(nums):
+        num = nums[i]
+
+        if num != 0:
+            nums[index] = num
+            index += 1
+        i += 1
+
+        print(nums)
+
+    i = index
+
+    while i < len(nums):
+        nums[i] = 0
+        i += 1
+        print(nums)
+
+    return nums
+
+print(moveZeros([0,4,12,0,6])) #[4,12,6,0,0]
+
+print("BREAK")
+
+# This problem was asked by Microsoft.
+# Given a dictionary of words and a string made up of those words (no spaces), return the original 
+# sentence in a list. If there is more than one possible reconstruction, return any of them. If 
+# there is no possible reconstruction, then return null.
+# For example, given the set of words 'quick', 'brown', 'the', 'fox', and the string "thequickbrownfox", 
+# you should return ['the', 'quick', 'brown', 'fox'].
+# Given the set of words 'bed', 'bath', 'bedbath', 'and', 'beyond', and the string "bedbathandbeyond", 
+# return either ['bed', 'bath', 'and', 'beyond] or ['bedbath', 'and', 'beyond'].
+
+def origSentence(words, s):
+
+    answer = []
+    dictionary = {}
+
+    for word in words:
+        if word[0] not in dictionary:
+            dictionary[word[0]] = [word]
+        else:
+            dictionary[word[0]].append(word)
+
+    for i, letter in enumerate(s):
+        if letter in dictionary:
+            for word in dictionary[letter]:
+                if s[i:i+len(word)] == word:
+                    answer.append(word)
+
+    return answer
+
+print(origSentence(['quick', 'brown', 'the', 'fox'], "thequickbrownfox")) #['the', 'quick', 'brown', 'fox']
+print(origSentence(['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"))
+# ['bed', 'bath', 'and', 'beyond] or ['bedbath', 'and', 'beyond']
