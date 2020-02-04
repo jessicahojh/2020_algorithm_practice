@@ -991,3 +991,25 @@ def origSentence(words, s):
 print(origSentence(['quick', 'brown', 'the', 'fox'], "thequickbrownfox")) #['the', 'quick', 'brown', 'fox']
 print(origSentence(['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"))
 # ['bed', 'bath', 'and', 'beyond] or ['bedbath', 'and', 'beyond']
+
+print("BREAK")
+
+def origSentence2(words, s):
+
+    toSet = set(words)
+    answer = []
+
+    start = 0
+    end = 1
+
+    while start < len(s):
+        if s[start:end] in toSet:
+            answer.append(s[start:end])
+            start = end
+        end += 1
+
+    return answer
+
+print(origSentence2(['quick', 'brown', 'the', 'fox'], "thequickbrownfox")) #['the', 'quick', 'brown', 'fox']
+print(origSentence2(['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"))
+# ['bed', 'bath', 'and', 'beyond] or ['bedbath', 'and', 'beyond']
