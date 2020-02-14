@@ -1075,3 +1075,67 @@ def encoded(s):
 print(encoded("AAAABBBCCDAA")) # "4A3B2C1D2A"
 print(encoded("AAAABBBCCDA")) # "4A3B2C1D1A"
 
+print("BREAK")
+
+# This problem was asked by Google.
+
+# Given an array of strictly the characters 'R', 'G', and 'B', segregate the values of the array 
+# so that all the Rs come first, the Gs come second, and the Bs come last.You can only swap elements 
+# of the array.
+
+# Do this in linear time and in -place.
+
+# For example, given the array['G', 'B', 'R', 'R', 'B', 'R', 'G']
+# it should become['R', 'R', 'R', 'G', 'G', 'B', 'B']
+
+def swap_elements(lst):
+
+    R_count = 0 
+    G_count = 0 
+    B_count = 0 
+
+    for letter in lst:
+        if letter == "R":
+            R_count += 1
+        elif letter == "G":
+            G_count += 1
+        elif letter == "B":
+            B_count += 1
+
+    for i in range(0,R_count): 
+        lst[i] = "R"
+    for i in range(R_count,R_count+G_count): 
+        lst[i] = "G"
+    for i in range(R_count+G_count, len(lst)): 
+        lst[i] = "B"
+
+    return lst
+
+print(swap_elements(['G', 'B', 'R', 'R', 'B', 'R', 'G']))
+
+print("BREAK")
+
+# better attempt
+def swap_elements2(lst):
+
+    beg_pointer = 0
+    end_pointer = len(lst) - 1
+    i = 0
+
+    while beg_pointer != end_pointer - 1:
+        if lst[i] == "R":
+            lst[beg_pointer], lst[i] = lst[i], lst[beg_pointer]
+            beg_pointer +=1
+            i += 1
+        elif lst[i] == "B":
+            lst[end_pointer], lst[i] = lst[i], lst[end_pointer]
+            end_pointer -= 1
+        elif lst[i] == "G":
+            i += 1
+
+    return lst
+
+print(swap_elements2(['G', 'B', 'R', 'R', 'B', 'R', 'G']))
+print(swap_elements2(['R', 'R', 'R', 'R', 'B', 'B', 'B']))
+print(swap_elements2(['G', 'B', 'B', 'R', 'B', 'G', 'R']))
+print(swap_elements2(['G', 'B', 'B', 'R', 'B', 'G', 'B']))
